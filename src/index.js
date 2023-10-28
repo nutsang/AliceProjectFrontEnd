@@ -1,13 +1,39 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { store } from './redux/store'
+import { Provider } from 'react-redux'
 import reportWebVitals from './reportWebVitals';
+import Home from './pages/home/Home'
+import Search from './pages/search/Search'
+import SignUp from './pages/sign-up/SignUp'
+import SignIn from './pages/sign-in/SignIn'
+import Media from './pages/media/Media'
+import EditAccount from './pages/edit-account/EditAccount';
+import Friends from './pages/friends/Friends';
+import Preference from './pages/preference/Preference';
+import ForgotPassword from './pages/forgot-password/ForgotPassword';
 
+document.body.className = 'font-IBM w-screen h-screen bg-cover bg-center bg-repeat duration-500 magicpattern'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route index path='/' element={<Home />} />
+          <Route path='/search' element={<Search />} />
+          <Route path='/sign-up' element={<SignUp />} />
+          <Route path='/sign-in' element={<SignIn />} />
+          <Route path='/edit-account' element={<EditAccount />} />
+          <Route path='/friends' element={<Friends />} />
+          <Route path='/preference' element={<Preference />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/Media/:id/:linked_to' element={<Media />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );
 
