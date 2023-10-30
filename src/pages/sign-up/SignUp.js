@@ -119,12 +119,21 @@ const SignUp = () => {
         }
       })
       .catch((error) => {
-        Swal.fire({
-          title: 'คำเตือน',
-          text: error.response.data.message,
-          icon: 'warning',
-          confirmButtonText: 'ตกลง'
-        })
+        if(error.response === undefined){
+          Swal.fire({
+            title: 'ล้มเหลว',
+            text: 'สร้างบัญชีล้มเหลว',
+            icon: 'error',
+            confirmButtonText: 'ตกลง'
+          })
+        }else{
+          Swal.fire({
+            title: 'คำเตือน',
+            text: error.response.data.message,
+            icon: 'warning',
+            confirmButtonText: 'ตกลง'
+          })
+        }
       })
     }
   }

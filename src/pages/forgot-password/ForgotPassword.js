@@ -1,16 +1,20 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux'
 import MetaHeader from '../../components/meta-header/MetaHeader'
 import Navigation from '../../components/navigation/Navigation'
 import InputBox from '../../components/input-box/InputBox'
 import { resetPassword } from '../../service/authentication'
-import { useState } from 'react';
-import Swal from 'sweetalert2';
+import { useEffect, useState } from 'react'
+import Swal from 'sweetalert2'
 
 const ForgotPassword = () => {
     const darkMode = useSelector((state) => state.switchMode.darkMode)
+    const isLogin = useSelector((state) => state.isLogin.isLogin)
     const [account ,setAccount] = useState({email:''})
     const navigate = useNavigate()
+    useEffect(()=>{
+      isLogin && navigate('/')
+    }, [isLogin])
 
     const success = (message) => {
         Swal.fire({

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import MetaHeader from '../../components/meta-header/MetaHeader'
 import Navigation from '../../components/navigation/Navigation'
 import InputBox from '../../components/input-box/InputBox'
@@ -9,15 +9,13 @@ import Swal from 'sweetalert2';
 
 const SignIn = () => {
   const isLogin = useSelector((state) => state.isLogin.isLogin)
-
+  const navigate = useNavigate()
   useEffect(()=>{
     isLogin && navigate('/')
   }, [isLogin])
 
   const darkMode = useSelector((state) => state.switchMode.darkMode)
   const [account ,setAccount] = useState({email:'', password:''})
-  const navigate = useNavigate()
-
   const success = (message) => {
     Swal.fire({
       title: 'สำเร็จ',

@@ -62,7 +62,6 @@ export const signOutAccount = (success, unsuccess) => {
 }
 
 export const resetPassword = (email, success, unsuccess) => {
-    console.log(email)
     sendPasswordResetEmail(authentication, email)
     .then(() => {
         success(`กรุณาตรวจสอบอีเมล ${email} เพื่อเปลี่ยนรหัสผ่าน`)

@@ -15,7 +15,7 @@ import Friends from './pages/friends/Friends';
 import Preference from './pages/preference/Preference';
 import ForgotPassword from './pages/forgot-password/ForgotPassword';
 
-document.body.className = 'font-IBM w-screen h-screen bg-cover bg-center bg-repeat duration-500 magicpattern'
+document.body.className = 'font-IBM h-screen bg-cover bg-center bg-repeat duration-500 magicpattern'
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
