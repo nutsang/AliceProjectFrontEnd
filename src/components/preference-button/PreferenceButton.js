@@ -39,11 +39,31 @@ const PreferenceButton = ({media_id, setIsPublic, mediaPreference, setMediaPrefe
     }
 
     const publicPreference = () => {
-        setIsPublic(true)
+        const token = localStorage.getItem('token')
+        axios.patch(`${process.env.REACT_APP_API}/preference-public`, {id:media_id}, {headers: {
+            'Authorization': `Bearer ${token}`
+          }})
+        .then((response) => {
+            setIsPublic(true)
+            success(response.data.message)
+        })
+        .catch((error) => {
+            unsuccess(error.response.message)
+        })
     }
 
     const privatePreference = () => {
-        setIsPublic(false)
+        const token = localStorage.getItem('token')
+        axios.patch(`${process.env.REACT_APP_API}/preference-private`, {id:media_id}, {headers: {
+            'Authorization': `Bearer ${token}`
+          }})
+        .then((response) => {
+            setIsPublic(false)
+            success(response.data.message)
+        })
+        .catch((error) => {
+            unsuccess(error.response.message)
+        })
     }
 
     return (<>

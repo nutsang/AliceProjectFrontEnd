@@ -15,7 +15,7 @@ const EditAccount = () => {
     <>
     <MetaHeader title={`แก้ไขโปรไฟล์`} />
     <Navigation />
-    <div>EditAccount</div>
+    <div className='container mx-auto bg-white text-black'>Edit Account</div>
     </>
   )
 }

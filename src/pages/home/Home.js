@@ -18,7 +18,7 @@ const Home = () => {
           setMedia(response.data)
         })
         .catch((error) => {
-          if(errorOnce){
+          if(!errorOnce){
             Swal.fire({
               title: 'เกิดข้อผิดพลาด',
               text: error.code === 'ERR_NETWORK' ? 'เซิฟเวอร์กำลังปรับปรุง...' : error.response.data.message,
