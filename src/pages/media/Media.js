@@ -39,7 +39,7 @@ const Media = () => {
         })
         .catch((error) => {})
     }
-  }, [])
+  }, [id, isLogin, linked_to])
 
   return (
     <>
