@@ -12,9 +12,11 @@ const Media = () => {
   const {id, linked_to} = useParams()
   const [information, setInforamtion] = useState([])
   const [episodeList, setEpisodeList] = useState([])
+  const [mediaPreference, setMediaPreference] = useState([])
   const [jwp_id, setJWP_ID] = useState('')
   const [episodeStatus, setEpisodeStatus] = useState(false)
   const darkMode = useSelector((state) => state.switchMode.darkMode)
+  const isLogin = useSelector((state) => state.isLogin.isLogin)
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_API}/media/${id}/${linked_to}`)
@@ -27,7 +29,16 @@ const Media = () => {
         setJWP_ID(response.data.episode[0].jwp_id)
       }).catch((error) => {})
     })
-    
+    if(isLogin){
+        const token = localStorage.getItem('token')
+        axios.get(`${process.env.REACT_APP_API}/preference`, {headers: {
+          'Authorization': `Bearer ${token}`
+        }})
+        .then((response) => {
+          setMediaPreference(response.data.map(item => item.id))
+        })
+        .catch((error) => {})
+    }
   }, [])
 
   return (
@@ -36,7 +47,7 @@ const Media = () => {
     <Navigation />
     <div className='container mx-auto p-24'>
       <div className='mt-5 container flex flex-col'>
-      <InformationCard  key={information.id} {...information} episode_amount={episodeList.length}/>
+      <InformationCard  key={information.id} {...information} episode_amount={episodeList.length} mediaPreference={mediaPreference} setMediaPreference={setMediaPreference}/>
         {episodeStatus && 
         <div className='flex-1'>
           <div className={`collapse collapse-open mt-5 ${darkMode ? "glass" : "bg-gray-200"}`}>

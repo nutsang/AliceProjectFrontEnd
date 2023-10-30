@@ -35,7 +35,7 @@ const Home = () => {
             'Authorization': `Bearer ${token}`
           }})
           .then((response) => {
-            setMediaPreference(response.data)
+            setMediaPreference(response.data.map(item => item.id))
           })
           .catch((error) => {})
       }
@@ -48,7 +48,7 @@ const Home = () => {
       <h1 className='text-4xl mt-10 mb-5'>ยอดนิยม</h1>
       <div className='grid place-content-center grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2.5 sm:gap-5 md:gap-7'>
         {(((media.length > 0) && !errorOnce) && isLogin) ?
-        media.map((media) => <MediaCard key={media.id} media={media} mediaPreference={mediaPreference}/>) : 
+        media.map((media) => <MediaCard key={media.id} media={media} mediaPreference={mediaPreference} setMediaPreference={setMediaPreference}/>) : 
         media.map((media) => <MediaCard key={media.id} media={media} />)}
       </div>
     </div>

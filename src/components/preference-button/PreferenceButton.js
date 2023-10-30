@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import axios from 'axios'
 import Swal from 'sweetalert2';
 
-const PreferenceButton = ({media_id, setIsPublic}) => {
+const PreferenceButton = ({media_id, setIsPublic, mediaPreference, setMediaPreference}) => {
     const darkMode = useSelector((state) => state.switchMode.darkMode)
 
     const success = (message) => {
@@ -30,6 +30,7 @@ const PreferenceButton = ({media_id, setIsPublic}) => {
             'Authorization': `Bearer ${token}`
           }})
           .then((response) => {
+            setMediaPreference([...mediaPreference, media_id])
             success(response.data.message)
           })
           .catch((error) => {
