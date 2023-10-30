@@ -44,7 +44,7 @@ const Preference = () => {
     <div className='container mx-auto p-10'>
       <h1 className='text-4xl mt-10 mb-5'>รายการโปรด</h1>
       <div className='grid place-content-center grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2.5 sm:gap-5 md:gap-7'>
-        {media.length > 0 && !errorOnce && media.map((media) => <PreferenceCard key={media.id} media={media} />)}
+        {media.length > 0 && !errorOnce && media.map((item) => <PreferenceCard key={item.id} media={item} mediaPreference={media} setMedia={setMedia} />)}
       </div>
     </div>
     </>

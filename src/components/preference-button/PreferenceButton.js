@@ -38,6 +38,22 @@ const PreferenceButton = ({media_id, setIsPublic, mediaPreference, setMediaPrefe
           })
     }
 
+    const deletePreference = () => {
+        const token = localStorage.getItem('token')
+        axios.delete(`${process.env.REACT_APP_API}/preference`, {
+            data: {id:media_id},
+            headers: {
+            'Authorization': `Bearer ${token}`
+          }})
+        .then((response) => {
+            setMediaPreference(mediaPreference.filter(item => item.id !== media_id))
+            success(response.data.message)
+        })
+        .catch((error) => {
+            unsuccess(error.response)
+        })
+    }
+
     const publicPreference = () => {
         const token = localStorage.getItem('token')
         axios.patch(`${process.env.REACT_APP_API}/preference-public`, {id:media_id}, {headers: {
@@ -125,6 +141,22 @@ const PreferenceButton = ({media_id, setIsPublic, mediaPreference, setMediaPrefe
                     </form>
                     <Link to='/sign-in' className='btn btn-primary'>เข้าสู่ระบบ</Link>
                     <Link to='/sign-up' className='btn btn-primary'>สร้างบัญชี</Link>
+                </div>
+            </div>
+        </dialog>
+        <dialog id={`isDelete-${media_id}`} className='modal sm:modal-middle'>
+            <div className={`modal-box ${darkMode ? 'bg-black' : 'bg-gray-200'}`}>
+                <h3 className='font-bold text-lg'>ยืนยันการลบรายการโปรด</h3>
+                <div className="modal-action">
+                    <form method="dialog">
+                        <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <form method="dialog">
+                        <button className='btn btn-primary' onClick={deletePreference}>ยืนยัน</button>
+                    </form>
+                    <form method="dialog">
+                        <button className='btn btn-outline btn-primary'>ยกเลิก</button>
+                    </form>
                 </div>
             </div>
         </dialog>
