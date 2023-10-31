@@ -1,18 +1,18 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 import MetaHeader from '../../components/meta-header/MetaHeader'
 import Navigation from '../../components/navigation/Navigation'
 import InputBox from '../../components/input-box/InputBox'
 import { signInAccount } from '../../service/authentication'
-import { useEffect, useState } from 'react';
-import Swal from 'sweetalert2';
+import { useEffect, useState } from 'react'
+import Swal from 'sweetalert2'
 
 const SignIn = () => {
   const isLogin = useSelector((state) => state.isLogin.isLogin)
   const navigate = useNavigate()
   useEffect(()=>{
     isLogin && navigate('/')
-  }, [isLogin])
+  }, [isLogin, navigate])
 
   const darkMode = useSelector((state) => state.switchMode.darkMode)
   const [account ,setAccount] = useState({email:'', password:''})
@@ -46,7 +46,7 @@ const SignIn = () => {
 
   }
 
-  const createAccount = (event) => {
+  const handleSignInAccount = (event) => {
     event.preventDefault()
     signInAccount(account, success, unsuccess)
   }
@@ -56,7 +56,7 @@ const SignIn = () => {
     <MetaHeader title={`เข้าสู่ระบบ`} />
     <Navigation />
     <div className='container t mx-auto w-full h-full mt-10 flex justify-center'>
-      <form onSubmit={createAccount} className={`p-10 rounded ${darkMode ? 'glass' : ' bg-slate-100 shadow-2xl'}`}>
+      <form onSubmit={handleSignInAccount} className={`p-10 rounded ${darkMode ? 'glass' : ' bg-slate-100 shadow-2xl'}`}>
         <h1 className='text-4xl mb-3'>เข้าสู่ระบบ</h1>
         <InputBox label={'อีเมล'} placeholder={''} type={'text'} value={account.email} callbackFunction={setEmail} />
         <InputBox label={'รหัสผ่าน'} placeholder={''} type={'password'}  eye={true} value={account.password} callbackFunction={setPassword} />

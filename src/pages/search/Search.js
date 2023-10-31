@@ -46,13 +46,7 @@ const Search = () => {
           item.title.toLowerCase().includes(search.toLowerCase()) &&
           (item.genres !== null && item.genres.split(',').some(genre => filterMedia.filter(item => item[1]).map(item => item[0]).includes(genre)))
         )
-      }))/*
-      setMediaResult(media.filter((item) => {
-        return (
-          item.title.toLowerCase().includes(search.toLowerCase()) &&
-          (item.genres !== null && item.genres.split(',').some(genre => filterResult.includes(genre)))
-        )
-      }))     */
+      }))
     }
   }
 
