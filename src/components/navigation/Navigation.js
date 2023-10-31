@@ -66,7 +66,7 @@ const Navigation = () => {
             (
               <ul tabIndex={0} className='dropdown-content menu mt-3 p-2 z-[1] shadow bg-primary rounded-box w-52'>
                 <li><Link to='/search'><RiSearch2Line size={16} /> ค้นหาข้อมูล</Link></li>
-                <li><Link to='/search'><RiHeart3Line size={16} /> รายการโปรด</Link></li>
+                <li><Link to='/preference'><RiHeart3Line size={16} /> รายการโปรด</Link></li>
                 <li><Link to='/edit-account'><FiEdit size={16} /> แก้ไขโปรไฟล์</Link></li>
                 <li><Link to='/friends'><FaUserFriends size={16} /> เพื่อน</Link></li>
                 <li><Link to='#' onClick={() => {signOutAccount(success, unsuccess)}}><BiLogOut size={16} /> ออกจากระบบ</Link></li>

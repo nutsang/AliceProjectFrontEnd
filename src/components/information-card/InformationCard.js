@@ -71,7 +71,7 @@ const InformationCard = ({id, cover_photo, title, dubbed, subtitle, synopsis, po
             })
             .catch((error) => {})
         }
-    },[isLogin])
+    },[isLogin, id])
 
     return (<>
     <PreferenceButton media_id={id} mediaPreference={mediaPreference} setMediaPreference={setMediaPreference}/>
@@ -94,7 +94,7 @@ const InformationCard = ({id, cover_photo, title, dubbed, subtitle, synopsis, po
                 )}
             </span>
             <span>คะแนนที่คุณโหวต: {rating}</span>
-            <div className='absolute top-2 right-2 btn btn-circle btn-primary lg:hidden' title='เพิ่มรายการโปรด' onClick={(event)=>{event.preventDefault()}}><RiHeart3Line size={32}/></div>
+            {!mediaPreference.includes(id) && <button className='absolute top-2 right-2 btn btn-circle btn-primary lg:hidden' title='เพิ่มรายการโปรด' onClick={preferenceModal}><RiHeart3Line size={32}/></button>}
         </div>
     </div>
     </>)
