@@ -6,12 +6,17 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 import MediaCard from '../../components/media-card/MediaCard'
-import FilterButton from '../../components/filter-button/FilterButton'
 
 const Search = () => {
+  const [media, setMedia] = useState([])
+  const [mediaResult, setMediaResult] = useState([])
+  const [mediaPreference, setMediaPreference] = useState([])
+  const [errorOnce, setErrorOnce] = useState(false)
+  const isLogin = useSelector((state) => state.isLogin.isLogin)
   const darkMode = useSelector((state) => state.switchMode.darkMode)
   const [search, setSearch] = useState('')
   const [filterShow, setFilterShow] = useState(false)
+  const [filterResult, setFilterResult] = useState([])
   const [filterMedia, setFilterMedia] = useState([
     ['แอ็กชัน', false],
     ['เพลง', false],
@@ -29,16 +34,28 @@ const Search = () => {
     ['โชโจะ', false],
     ['ระทึกขวัญ', false]
   ])
-  const [media, setMedia] = useState([])
-  const [mediaResult, setMediaResult] = useState([])
-  const [mediaPreference, setMediaPreference] = useState([])
-  const [errorOnce, setErrorOnce] = useState(false)
-  const isLogin = useSelector((state) => state.isLogin.isLogin)
 
   const handleSearchMedia = (event) => {
     event.preventDefault()
-    setMediaResult(media.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))//search.toLowerCase()
+    
+    if(filterResult.length < 1){
+      setMediaResult(media.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
+    }else{
+      setMediaResult(media.filter((item) => {
+        return (
+          item.title.toLowerCase().includes(search.toLowerCase()) &&
+          (item.genres !== null && item.genres.split(',').some(genre => filterMedia.filter(item => item[1]).map(item => item[0]).includes(genre)))
+        )
+      }))/*
+      setMediaResult(media.filter((item) => {
+        return (
+          item.title.toLowerCase().includes(search.toLowerCase()) &&
+          (item.genres !== null && item.genres.split(',').some(genre => filterResult.includes(genre)))
+        )
+      }))     */
+    }
   }
+
     useEffect(()=>{
       if(media.length <= 0){
         axios.get(`${process.env.REACT_APP_API}/`)
@@ -67,7 +84,7 @@ const Search = () => {
           })
           .catch((error) => {})
       }
-    }, [isLogin, errorOnce, media.length])
+    }, [isLogin, errorOnce, media.length, mediaResult])
   return (
     <>
     <MetaHeader title={`ค้นหาข้อมูล`} />
@@ -87,12 +104,24 @@ const Search = () => {
           <button
           key={index}
           onClick={() => {
-            const newFilterMedia = [...filterMedia];
-            newFilterMedia[index][1] = !item[1];
-            setFilterMedia(newFilterMedia);
+            const newFilterMedia = [...filterMedia]
+            newFilterMedia[index][1] = !item[1]
+            setFilterMedia(newFilterMedia)
+            setFilterResult(filterMedia.filter(item => item[1]).map(item => item[0]))
+            if(filterMedia.filter(item => item[1]).map(item => item[0]).length < 1){
+              setMediaResult(media.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
+            }else if(search === ''){
+              setMediaResult(media.filter((item) => {return (item.genres !== null && item.genres.split(',').some(genre => filterMedia.filter(item => item[1]).map(item => item[0]).includes(genre)))}))
+            }else{
+              setMediaResult(media.filter((item) => {
+                return (
+                  item.title.toLowerCase().includes(search.toLowerCase()) &&
+                  (item.genres !== null && item.genres.split(',').some(genre => filterMedia.filter(item => item[1]).map(item => item[0]).includes(genre)))
+                )
+              }))
+            }
           }}
-          className={`btn btn-square ${!item[1] && 'btn-outline'} btn-primary w-full text-xl font-black`}
-          >
+          className={`btn btn-square ${!item[1] && 'btn-outline'} btn-primary w-full text-xl font-black`}>
             {item[0]}
           </button>
         )}
@@ -101,9 +130,9 @@ const Search = () => {
 
 
 
-    {search === '' ? (
+    {search === '' && filterResult.length < 1 ? (
       <div className='container mx-auto px-10'>
-        <h1 className='text-4xl mt-10 mb-5'>ผลการค้นหา ทั้งหมด</h1>
+        <h1 className='text-4xl mt-10 mb-5'>ผลการค้นหา ทั้งหมด ประเภท ทั้งหมด</h1>
         <div className='grid place-content-center grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2.5 sm:gap-5 md:gap-7'>
           {(((media.length > 0) && !errorOnce) && isLogin) ?
           media.map((media) => <MediaCard key={media.id} media={media} mediaPreference={mediaPreference} setMediaPreference={setMediaPreference}/>) : 
@@ -112,7 +141,7 @@ const Search = () => {
       </div>
     ) : (
       <div className='container mx-auto px-10'>
-        <h1 className='text-4xl mt-10 mb-5'>ผลการค้นหา {search}</h1>
+        <h1 className='text-4xl mt-10 mb-5'>ผลการค้นหา {search === '' ? 'ทั้งหมด' : search} ประเภท {filterResult.map(item => item+' ')}</h1>
         <div className='grid place-content-center grid-cols-2 sm:grid-cols-4 md:grid-cols-5 gap-2.5 sm:gap-5 md:gap-7'>
           {(((mediaResult.length > 0) && !errorOnce) && isLogin) ?
           mediaResult.map((media) => <MediaCard key={media.id} media={media} mediaPreference={mediaPreference} setMediaPreference={setMediaPreference}/>) : 
