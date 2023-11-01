@@ -15,6 +15,7 @@ const Home = () => {
       if(media.length <= 0){
         axios.get(`${process.env.REACT_APP_API}/`)
         .then((response) => {
+          console.log(response.data)
           setMedia(response.data)
         })
         .catch((error) => {

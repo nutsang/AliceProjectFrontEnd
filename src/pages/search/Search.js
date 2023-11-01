@@ -18,21 +18,23 @@ const Search = () => {
   const [filterShow, setFilterShow] = useState(false)
   const [filterResult, setFilterResult] = useState([])
   const [filterMedia, setFilterMedia] = useState([
-    ['แอ็กชัน', false],
-    ['เพลง', false],
-    ['หนุ่มน้อย', false],
-    ['ผจญภัย', false],
-    ['โรแมนติก', false],
-    ['ชีวิตประจำวัน', false],
-    ['คอมเมดี้', false],
-    ['วิทยาศาสตร์และเทคโนโลยี', false],
-    ['กีฬา', false],
+    ['ต่อสู้', false],
+    ['ตลก', false],
     ['ดราม่า', false],
-    ['เซเน็ง', false],
-    ['เหนือธรรมชาติ', false],
     ['แฟนตาซี', false],
-    ['โชโจะ', false],
-    ['ระทึกขวัญ', false]
+    ['เกม', false],
+    ['อาหาร', false],
+    ['ประวัติศาสตร์', false],
+    ['สยองขวัญ', false],
+    ['ต่างโลก', false],
+    ['เพลง', false],
+    ['ไซ-ไฟ', false],
+    ['วัยรุ่น', false],
+    ['สาวน้อย', false],
+    ['หนุ่มน้อย', false],
+    ['จิตวิทยา', false],
+    ['ชีวิตประจำวัน', false],
+    ['กีฬา', false]
   ])
 
   const handleSearchMedia = (event) => {
