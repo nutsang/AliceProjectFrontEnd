@@ -70,3 +70,65 @@ export const resetPassword = (email, success, unsuccess) => {
         unsuccess('การกู้คืนรหัสผ่านล้มเหลว')
     })
 }
+
+export const updateUsernameAccount = (account, success, unsuccess) => {
+    const token = localStorage.getItem('token')
+    axios.post(`${process.env.REACT_APP_API}/sign-in-authentication`, {}, {headers: {
+        'Authorization': `Bearer ${token}`
+    }})
+    .then((response) => {
+        const email = response.data.decoded.email
+        signInWithEmailAndPassword(authentication, email.toLowerCase(), account.password)
+        .then((userCredential) => {
+            axios.patch(`${process.env.REACT_APP_API}/edit-account-username`, {email:userCredential.user.email, username:account.username})
+            .then((response) => {
+                if(response.data.status){
+                    success('แก้ไขโปรไฟล์สำเร็จ')
+                }
+            })
+            .catch((error) => {
+                unsuccess('แก้ไขโปรไฟล์ไม่สำเร็จ')
+            })
+        })
+        .catch((error) => {
+            unsuccess('รหัสผ่านเก่าไม่ถูกต้อง')
+        })
+    })
+    .catch((error) => {
+        unsuccess('แก้ไขโปรไฟล์ไม่สำเร็จ')
+    })
+}
+
+export const updateUsernameAndPasswordAccount = (account, success, unsuccess) => {
+    const token = localStorage.getItem('token')
+    axios.post(`${process.env.REACT_APP_API}/sign-in-authentication`, {}, {headers: {
+        'Authorization': `Bearer ${token}`
+    }})
+    .then((response) => {
+        const email = response.data.decoded.email
+        signInWithEmailAndPassword(authentication, email.toLowerCase(), account.password)
+        .then((userCredential) => {
+            updatePassword(userCredential.user, account.newPassword)
+            .then(() => {
+                axios.patch(`${process.env.REACT_APP_API}/edit-account-username`, {email:userCredential.user.email, username:account.username})
+                .then((response) => {
+                    if(response.data.status){
+                        success('แก้ไขโปรไฟล์สำเร็จ')
+                    }
+                })
+                .catch((error) => {
+                    unsuccess('แก้ไขโปรไฟล์ไม่สำเร็จ')
+                })
+            })
+            .catch((error) => {
+                unsuccess('แก้ไขโปรไฟล์ไม่สำเร็จ')
+            })
+        })
+        .catch((error) => {
+            unsuccess('รหัสผ่านเก่าไม่ถูกต้อง')
+        })
+    })
+    .catch((error) => {
+        unsuccess('แก้ไขโปรไฟล์ไม่สำเร็จ')
+    })
+}
