@@ -48,7 +48,7 @@ const PreferenceFriend = () => {
       })
       .catch((error) => {})
   }
-  }, [errorOnce, media.length, friend_id])
+  }, [errorOnce, media.length, friend_id, isLogin])
   
 
   return (
