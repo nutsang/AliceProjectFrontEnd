@@ -14,7 +14,7 @@ const ForgotPassword = () => {
     const navigate = useNavigate()
     useEffect(()=>{
       isLogin && navigate('/')
-    }, [isLogin])
+    }, [isLogin, navigate])
 
     const success = (message) => {
         Swal.fire({

@@ -13,6 +13,7 @@ import Media from './pages/media/Media'
 import EditAccount from './pages/edit-account/EditAccount';
 import Friends from './pages/friends/Friends';
 import Preference from './pages/preference/Preference';
+import PreferenceFriend from './pages/preference/PreferenceFriend';
 import ForgotPassword from './pages/forgot-password/ForgotPassword';
 
 document.body.className = 'font-IBM h-screen bg-cover bg-center bg-repeat duration-500 magicpattern'
@@ -23,14 +24,15 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route index path='/' element={<Home />} />
-          <Route path='/search' element={<Search />} />
-          <Route path='/sign-up' element={<SignUp />} />
-          <Route path='/sign-in' element={<SignIn />} />
-          <Route path='/edit-account' element={<EditAccount />} />
-          <Route path='/friends' element={<Friends />} />
-          <Route path='/preference' element={<Preference />} />
-          <Route path='/forgot-password' element={<ForgotPassword />} />
-          <Route path='/Media/:id/:linked_to' element={<Media />} />
+          <Route exact path='/search' element={<Search />} />
+          <Route exact path='/sign-up' element={<SignUp />} />
+          <Route exact path='/sign-in' element={<SignIn />} />
+          <Route exact path='/edit-account' element={<EditAccount />} />
+          <Route exact path='/friends' element={<Friends />} />
+          <Route exact path='/preference' element={<Preference />} />
+          <Route exact path='/preference-friend/:friend_id' element={<PreferenceFriend />} />
+          <Route exact path='/forgot-password' element={<ForgotPassword />} />
+          <Route exact path='/Media/:id/:linked_to' element={<Media />} />
         </Routes>
       </BrowserRouter>
     </Provider>

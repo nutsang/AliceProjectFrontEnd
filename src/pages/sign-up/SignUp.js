@@ -13,7 +13,7 @@ const SignUp = () => {
   
   useEffect(()=>{
     isLogin && navigate('/')
-  }, [isLogin])
+  }, [isLogin, navigate])
 
   const darkMode = useSelector((state) => state.switchMode.darkMode)
   const atLeastOneUppercase = /[A-Z]/g

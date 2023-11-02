@@ -6,6 +6,7 @@ import PreferenceButton from '../preference-button/PreferenceButton'
 const MediaCard = ({media, mediaPreference, setMediaPreference}) => {
     const darkMode = useSelector((state) => state.switchMode.darkMode)
     const isLogin = useSelector((state) => state.isLogin.isLogin)
+
     const preferenceModal = (event) => {
         isLogin ? document.getElementById(`isSignIn-${media.id}`).showModal() : document.getElementById(`isSignOut-${media.id}`).showModal()
         event.preventDefault()

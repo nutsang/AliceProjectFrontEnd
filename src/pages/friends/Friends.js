@@ -180,7 +180,7 @@ const Friends = () => {
   }
 
   const handlePreferencetFriend = (id) => {
-
+    navigate(`/preference-friend/${id}`)
   }
 
   return (
