@@ -46,7 +46,13 @@ export const signInAccount = (account, success, unsuccess) => {
         })
     })
     .catch((error) => {
-        unsuccess('ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง')
+        axios.patch(`${process.env.REACT_APP_API}/sign-in`, {email: account.email.toLowerCase()})
+        .then((response) => {
+            unsuccess('ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง')
+        })
+        .catch((error) => {
+            unsuccess('ชื่อผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง')
+        })
     })
 }
 
@@ -64,7 +70,13 @@ export const signOutAccount = (success, unsuccess) => {
 export const resetPassword = (email, success, unsuccess) => {
     sendPasswordResetEmail(authentication, email)
     .then(() => {
-        success(`กรุณาตรวจสอบอีเมล ${email} เพื่อเปลี่ยนรหัสผ่าน`)
+        axios.patch(`${process.env.REACT_APP_API}/resetpassword`, {email: email.toLowerCase()})
+        .then((response) => {
+            success(`กรุณาตรวจสอบอีเมล ${email} เพื่อเปลี่ยนรหัสผ่าน`)
+        })
+        .catch((error) => {
+            success(`กรุณาตรวจสอบอีเมล ${email} เพื่อเปลี่ยนรหัสผ่าน`)
+        })
     })
     .catch(() => {
         unsuccess('การกู้คืนรหัสผ่านล้มเหลว')
