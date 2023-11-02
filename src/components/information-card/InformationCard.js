@@ -77,7 +77,7 @@ const InformationCard = ({id, cover_photo, title, dubbed, subtitle, synopsis, po
     <PreferenceButton media_id={id} mediaPreference={mediaPreference} setMediaPreference={setMediaPreference}/>
     <div className={`card card-side shadow-xl ${darkMode ? "glass" : "bg-gray-200"}`}>
         <figure className='lg:w-96 relative hidden lg:flex'>
-            <img className='object-fill w-full h-full hidden lg:flex' src={cover_photo ? require(`../../asset/cover-photo/${cover_photo}`) : ''} alt={title}/>
+            <img className='object-fill w-full h-full hidden lg:flex' loading='lazy' src={cover_photo ? require(`../../asset/cover-photo/${cover_photo}`) : ''} alt={title}/>
             {!mediaPreference.includes(id) && <button className='absolute top-2 left-2 btn btn-circle btn-primary hidden lg:flex' title='เพิ่มรายการโปรด' onClick={preferenceModal}><RiHeart3Line size={32}/></button>}
         </figure>
         <div className='w-100 lg:w-4 card-body'>

@@ -15,7 +15,7 @@ const MediaCard = ({media, mediaPreference, setMediaPreference}) => {
         <Link to={`/media/${media.id}/${media.linked_to}`}>
             <div className={`card w-full h-full hover:scale-95 transition duration-700 ease-in-out ${darkMode ? "glass" : "bg-gray-200"}`}>
                 <figure className='relative h-3/5'>
-                    <img className='object-fill w-full h-full' src={require(`../../asset/cover-photo/${media.cover_photo}`)} alt={media.title} title={media.title} />
+                    <img className='object-fill w-full h-full' loading='lazy' src={require(`../../asset/cover-photo/${media.cover_photo}`)} alt={media.title} title={media.title} />
                     <div className="absolute top-2 right-2 badge badge-primary p-3">มี {media.episode_amount} ตอน</div>
                     {isLogin ? 
                     !mediaPreference.includes(media.id) && <button className='absolute top-10 right-2 btn btn-circle btn-primary' title='เพิ่มรายการโปรด' onClick={preferenceModal}><RiHeart3Line size={24}/></button>
