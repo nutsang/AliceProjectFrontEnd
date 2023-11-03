@@ -12,7 +12,7 @@ const SignIn = () => {
   const navigate = useNavigate()
   useEffect(()=>{
     isLogin && navigate('/')
-  }, [isLogin, navigate])
+  }, [isLogin])
 
   const darkMode = useSelector((state) => state.switchMode.darkMode)
   const [account ,setAccount] = useState({email:'', password:''})

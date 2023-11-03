@@ -9,6 +9,8 @@ import axios from 'axios';
 import { signUpAccount } from '../../service/authentication'
 
 const SignUp = () => {
+  const navigate = useNavigate()
+
   const isLogin = useSelector((state) => state.isLogin.isLogin)
   
   useEffect(()=>{
@@ -22,8 +24,7 @@ const SignUp = () => {
   const atLeastOneSpecialChar = /[#?!@$%^&*-]/g
   const eightCharsOrMore = /.{8,}/g
   const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/
-  const navigate = useNavigate()
-
+  
   const [passwordRequireMent, setPasswordRequireMent] = useState({minimumLength: false, alphabetLower: false, alphabetUpper: false, number: false, special: false})
   const [account ,setAccount] = useState({userName:'', email:'', password:'', confirmPassword:''})
 
